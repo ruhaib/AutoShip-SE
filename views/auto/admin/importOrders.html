@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme The Band</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="commonStyle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+ <script src="..\\script.js"></script>
+</head>
+<body id="manager">
+
+<div class="container" >
+  <div class="jumbotron" >
+    <div class ="company">
+    <img src="logo.jpg" class="img-circle" alt="Auto Ship logo" width=auto height="80">
+
+    <span >Auto Ship</span> 
+   </div>
+  </div>
+  </div>
+<nav class="navbar navbar-default " data-spy="affix" data-offset-top="60"  >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 >Usama Iftikhar</h3>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right links">
+        <li ><a href="manager.html">My Profile</a></li>
+        <li onclick="logout()">
+         <a href="#" class="btn btn-info btn-lg" >
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a></li>
+        </div>
+  </div>
+</nav>
+
+<div class="tabs"  >
+<ul class="nav nav-pills nav-stacked" >
+  <li><a href="allOrders.html" >All Orders</a></li>
+  <li><a href="importOrders.html" class="active">Import Orders</a></li>
+  <li><a href="makeCharts.html">Charts</a></li>
+  <li><a href="allEmployees.html">All Employees</a></li>
+  <li><a href="addEmployee.html">Add Employee</a></li>
+
+</ul>
+</div>
+
+
+
+<div class="data" style="padding-top: 0px">
+<div class="container  ">
+    <div class="col-md-6 col-md-offset-3">
+
+     
+                <h1 class="text-center" style="padding-bottom: 10px;">New Orders</h1>
+             
+        <!-- End of Search Form -->
+            
+    </div>
+</div>
+
+<div class="container" style="max-height:  300px; overflow: auto">
+
+ <table class="table table-bordered table-hover table-striped col-sm-3" >
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Order Name</th>
+        <th>Delivery Status</th>
+        <th>Region</th>
+        <th>Address</th>
+        <th>Receive Date</th>
+        <th>Price</th>
+     
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>123456</td>
+        <td>bader killas</td>
+        <td>Not Delivered</td>
+        <td>Lake Site</td>
+        <td>32-R fioper T</td>
+        <td>12 September</td>
+        <td>50</td>
+      </tr>
+      <tr>
+        <td>435465</td>
+        <td>yoyo sig</td>
+        <td>Not Delivered</td>
+        <td>Park Lane</td>
+        <td>65-T FST Soc</td>
+        <td>22 October 1993</td>
+     <td>900</td>
+     
+        </tr>
+     
+               <tr>
+        
+        <td>32168684</td>
+        <td>putter tos</td>
+        <td>Not Delivered</td>
+        <td>Pall Maler</td>
+        <td>33-A1 tutu cos</td>
+        <td>30 April 1998</td>
+     <td>5</td>
+     
+        </tr>
+<tr>
+        <td>87987</td>
+        <td>buttler post</td>
+        <td>Not Delivered</td>
+        <td>Old pant</td>
+        <td>95-Y Kuku steb</td>
+        <td>22 December 1996</td>
+    <td>35</td>     
+    </tr>
+        <tr>
+        
+        <td>6846846</td>
+        <td>screester</td>
+        <td>Not Delivered</td>
+        <td>Strands</td>
+        <td>35-P Bond Street</td>
+        <td>30 April 1998</td>
+     <td>65</td>
+     
+        </tr>
+        <tr>
+        
+        <td>999888</td>
+        <td>Skirting</td>
+        <td>Not Delivered</td>
+        <td>marlbroguh</td>
+        <td>5-G Ansgels</td>
+        <td>30 April 1998</td>
+     <td>12</td>
+     
+        </tr>
+
+<tr>
+        <td>87987</td>
+        <td>buttler post</td>
+        <td>Not Delivered</td>
+        <td>Old pant</td>
+        <td>95-Y Kuku steb</td>
+        <td>22 December 1996</td>
+    <td>35</td>     
+    </tr>
+        <tr>
+        
+        <td>6846846</td>
+        <td>screester</td>
+        <td>Not Delivered</td>
+        <td>Strands</td>
+        <td>35-P Bond Street</td>
+        <td>30 April 1998</td>
+     <td>65</td>
+     
+        </tr>
+        <tr>
+        
+        <td>999888</td>
+        <td>Skirting</td>
+        <td>Not Delivered</td>
+        <td>marlbroguh</td>
+        <td>5-G Ansgels</td>
+        <td>30 April 1998</td>
+     <td>12</td>
+     
+        </tr>
+    
+    </tbody>
+  </table>
+</div >
+</br>
+   <button class="btn btn-info col-md-12 btn-lg "    id="get-checked-data">Save</button>
+</div>
+</div>
+
+</body>
+</html>
+

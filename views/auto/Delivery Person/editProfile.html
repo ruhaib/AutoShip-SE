@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme The Band</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="commonStyle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <script src="..\\script.js"></script>
+
+
+</head>
+<body id="dperson"  onload="edit_profile()>
+
+<div class="container" >
+  <div class="jumbotron" >
+    <div class ="company">
+    <img src="logo.jpg" class="img-circle" alt="Auto Ship logo" width=auto height="80">
+
+    <span >Auto Ship</span> 
+   </div>
+  </div>
+  </div>
+<nav class="navbar navbar-default" data-spy="affix" data-offset-top="60" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 >Delivery Person</h3>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right links">
+        <li ><a href="dperson.html">My Profile</a></li>
+        <li onclick="logout()">
+         <a href="#" class="btn btn-info btn-lg" >
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a></li>
+        </div>
+  </div>
+</nav>
+
+
+<div class="tabs"  >
+<ul class="nav nav-pills nav-stacked" >
+  <li><a href="allOrders.html" >All Orders</a></li>
+  <li><a href="Deliveryperson.html" >Show Route</a></li>
+
+</ul>
+</div>
+
+
+<div class="data">
+
+<div class="container">
+ 
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Name:</label>
+      <div class="col-sm-4">
+      <input type="text" class="form-control"  id="name" placeholder="Enter Name" required>
+      </div>
+    </div>
+
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="cnic">CNIC No:</label>
+      <div class="col-sm-4">
+    <input type="text" class="form-control" id="cnic" placeholder="XXXXX-XXXXXXXX-X" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="eamil">Email:</label>
+      <div class="col-sm-4">
+     <input type="email" class="form-control" id="email" placeholder="Enter Email" required>
+      </div>
+    </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="contact">Contact No:</label>
+      <div class="col-sm-4">
+<input type="text" class="form-control" id="contact" placeholder="XXXX-XXXXXXX" required>
+      </div>
+    </div>
+   
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="contact">Date of Birth:</label>
+      <div class="col-sm-4">
+     <input type="date" class="form-control" id="dob" placeholder="Enter date of birth" required>
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="control-label col-sm-2" for="contact">Role:</label>
+      <div class="col-sm-4">
+     <p id="role" class="form-control-static"></p>
+      <span class="help-block" style="font-size: 11px; color:blue">Note: To change role, contact Administrator.</span>
+      </div>
+    </div>
+ <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-12 btn-group-lg">
+        <button type="button" onclick="update_profile()" class="btn btn-info">Update</button>
+      </div>
+      </div>
+
+
+
+
+  </form>
+</div>  
+
+    </div>  
+</body>
+</html>
+

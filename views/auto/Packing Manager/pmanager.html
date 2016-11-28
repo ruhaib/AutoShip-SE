@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme The Band</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="commonStyle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script src="..\\script.js"></script>
+
+</head>
+<body id="pmanager" onload="get_profile()">
+
+<div class="container" >
+  <div class="jumbotron" >
+    <div class ="company">
+    <img src="logo.jpg" class="img-circle" alt="Auto Ship logo" width=auto height="80">
+
+    <span >Auto Ship</span> 
+   </div>
+  </div>
+  </div>
+<nav class="navbar navbar-default" data-spy="affix" data-offset-top="60" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 >Package Manager</h3>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right links">
+        <li onclick="get_profile()"><a href="pmanager.html">My Profile</a></li>
+        <li onclick="logout()">
+         <a href="#" class="btn btn-info btn-lg" >
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a></li>
+        </div>
+  </div>
+</nav>
+
+<div class="tabs"  >
+<ul class="nav nav-pills nav-stacked" >
+  <li><a href="generateTags.html">Generate tags</a></li>
+  <li><a href="allOrders.html">All Orders</a></li>
+
+</ul>
+</div>
+
+
+
+
+<div class="data">
+
+<div class="container">
+ 
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Name:</label>
+      <div class="col-sm-10">
+        <p id="name" class="form-control-static"></p>
+      </div>
+    </div>
+
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="cnic">CNIC No:</label>
+      <div class="col-sm-10">
+     <p id="cnic" class="form-control-static"></p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="eamil">Email:</label>
+      <div class="col-sm-10">
+     <p id="email" class="form-control-static"></p>
+      </div>
+    </div>
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="contact">Contact No:</label>
+      <div class="col-sm-10">
+     <p id="contact" class="form-control-static"></p>
+      </div>
+    </div>
+   
+   <div class="form-group">
+      <label class="control-label col-sm-2" for="contact">Date of Birth:</label>
+      <div class="col-sm-10">
+     <p id="dob" class="form-control-static"></p>
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="control-label col-sm-2" for="contact">Role:</label>
+      <div class="col-sm-10">
+     <p id="role" class="form-control-static"></p>
+      </div>
+    </div>
+
+
+
+
+
+  </form>
+</div>  
+
+<div class="btn-group btn-group-md" style="margin-left: 100px; margin-top: 5px">
+  <button type="button" class="btn btn-info" onclick="location.href='editProfile.html';">Edit Profile</button>
+  <button type="button" class="btn btn-info" onclick="location.href='changePassword.html';">Change Password</button>
+  
+</div>
+    </div>  
+</body>
+</html>
+

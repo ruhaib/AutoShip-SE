@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme The Band</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="commonStyle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script src="..\\script.js"></script>
+
+
+</head>
+<body id="smanager" onload="all_orders()">
+
+<div class="container" >
+  <div class="jumbotron" >
+    <div class ="company">
+    <img src="logo.jpg" class="img-circle" alt="Auto Ship logo" width=auto height="80">
+
+    <span >Auto Ship</span> 
+   </div>
+  </div>
+  </div>
+<nav class="navbar navbar-default" data-spy="affix" data-offset-top="60" style="opacity:  1">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 >Shipping Manager</h3>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right links">
+        <li ><a href="smanager.html">My Profile</a></li>
+        <li onclick="logout()">
+         <a href="#" class="btn btn-info btn-lg" >
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a></li>
+        </div>
+  </div>
+</nav>
+
+<div class="tabs"  >
+<ul class="nav nav-pills nav-stacked" >
+  <li><a href="allOrders.html" class="active">All Orders</a></li>
+  <li><a href="shipOrders.html">Ship Orders</a></li>
+</ul>
+</div>
+
+
+<div class="data " style="padding-top: 0px">
+<div class="container" >
+<div class="container">
+
+<div class="container" >
+    <div class="col-md-6 col-md-offset-3">
+
+        <!-- Search Form -->
+        <form role="form">
+        
+        <!-- Search Field -->
+            <div class="row">
+                <h1 class="text-center">Search Orders</h1>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input id="myInput" onkeyup="myFunction()" class="form-control" type="text" name="search" placeholder="Search"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"><span style="margin-left:10px;">Search</span></button>
+                        </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+        <!-- End of Search Form -->
+            
+    </div>
+</div>
+
+
+<div id="all_orders" class="container">
+  
+</div>
+
+</div>
+
+</div>
+    </div>  
+
+        <script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+</body>
+</html>
+

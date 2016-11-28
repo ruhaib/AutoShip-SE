@@ -1,0 +1,62 @@
+  body {
+      font: 400 15px/1.8 Lato, sans-serif;
+      color: #777;
+      width: 100%;
+  }
+  h3{
+      margin: 10px 0 10px 0;
+padding-left: 20px;
+
+      letter-spacing: 5px;
+      font-size: 24px;
+      color: #111;
+  }
+  .company {
+font-size: 44px;
+text-align: center;
+  }
+  .jumbotron {
+    padding-top: 0px;
+    padding-bottom: 5px;
+  }
+  .links {
+    padding-left: 30px;
+  }
+.active {
+background-color: mediumturquoise !important;
+
+  }
+  ul.nav a:hover { background-color: mediumturquoise !important; }
+
+  .tabs {
+margin-top: 50px;
+    width: 300px;
+    max-height: 500px;
+    text-align: center;
+    float: left;
+background-color: paleturquoise;
+position: fixed;
+  font-size: 17px;
+   border: 2px solid;
+    border-radius: 10px;
+    border-color: mediumturquoise;
+  }
+
+  .affix {
+      top: 0;
+      width: 100%;
+  }
+.data {
+  margin-left: 310px;
+padding-top: 40px;
+font-size: 16px;
+background-color: aliceblue;
+margin-right: 10px;
+}
+.container {
+  width: 100% !important;
+}
+.jumbotron {
+  margin-left: 100px !important;
+margin-right: 100px !important;
+}
