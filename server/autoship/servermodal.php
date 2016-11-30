@@ -39,6 +39,48 @@ class Autoship {
         return json_encode($json);
     }
 
+
+    public static function model_getPassword($email){
+        $conn = Autoship::establishConnection();
+        $sql = $conn->prepare("SELECT password FROM user WHERE email = ? ");
+        $sql->bind_param("s",$email);
+
+        $sql->execute();    // execute the query
+        $sql->bind_result($password);
+        if($sql->fetch())
+        {
+            $json["STATUS"] = "SUCCESS";                   
+            $json["MESSEGE"] = "Login Successful";
+           
+
+
+            $mailto = $email;
+            
+            
+
+
+            
+            $subject = "Forgot Password";
+            $message = "your password is: ".$password;
+
+            $headers = "From:" . $mailto;
+            mail($mailto,$subject,$message,$headers);
+            
+            
+
+        }
+        else
+        {
+            $json["STATUS"] = "FAIL";
+            $json["MESSEGE"] = "Login Failed";
+            $json["user_type"] = "";
+            $json["uid"] = "";
+        }
+        $sql->close();
+        mysqli_close($conn);
+        return json_encode($json);
+    }
+
     public static function model_addEmployee($name,$cnic,$email,$password,$contact,$dob,$role){
         $conn = Autoship::establishConnection();
         $sql = $conn->prepare("INSERT INTO user(name,email,password,cnic,contact,DOB,type) VALUES(?,?,?,?,?,?,?)");
