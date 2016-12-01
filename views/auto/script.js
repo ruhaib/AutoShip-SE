@@ -580,3 +580,93 @@
                         }
                     });
     }
+
+    function changeTagStatus(){
+        
+        var rows = document.getElementsByTagName("tr");
+        var myIds = [];
+
+
+
+    $('#myTable').find('tr').each(function () {
+        var row = $(this);
+        if (row.find('input[type="checkbox"]').is(':checked')) {
+            $cells = $(this).children('td');
+
+             myIds.push({
+                    rowid: $($cells[0]).html()       
+                });
+                //alert($($cells[0]).html());
+        }
+    });
+
+    $.ajax({
+                        type: "POST",
+                        url: "/AutoShip-SE/server/autoship/servercontroller.php",
+                        data: { REQUEST_TYPE: 'CHANGE_TAG_STATUS', IDS: myIds },
+                        dataType: 'json',
+                        timeout: 30000,
+                        success: function (data) {
+                            if (data.STATUS == "SUCCESS") {
+                                alert("success");
+                                //window.location.href = '../login/login.html';
+
+                            }       
+                            else if (data.STATUS == "FAIL") {
+                                alert('Failed to logout');
+                            }
+                            else //ERROR
+                            {
+                                alert('Error');
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert("final error");
+                        }
+                    });
+
+        /*$("tbody tr").each(function(index){
+            $cells = $(this).children('td');
+            //alert($($cells[0]).html());
+            
+            //alert($($cells[6]).first().is(':checked'));
+
+            
+            
+
+            if(false)
+            {
+                myIds.push({
+                    rowid: $($cells[0]).html()       
+                });
+                alert($($cells[0]).html());
+            }
+           //  alert($($cells[1]).value);
+           
+        });
+        $.ajax({
+                        type: "POST",
+                        url: "http://localhost/Autoship-SE/server/autoship/servercontroller.php",
+                        data: { REQUEST_TYPE: 'CHANGE_TAG_STATUS', IDS: myIds},
+                        dataType: 'json',
+                        timeout: 30000,
+                        success: function (data) {
+                            if (data.STATUS == "SUCCESS") {
+                                alert("success");
+                                //window.location.href = '../login/login.html';
+
+                            }       
+                            else if (data.STATUS == "FAIL") {
+                                alert('Failed to logout');
+                            }
+                            else //ERROR
+                            {
+                                alert('Error');
+                            }
+                        },
+                        error: function (x, t, m) {
+                            
+                        }
+                    });
+    */
+    }

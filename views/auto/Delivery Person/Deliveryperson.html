@@ -14,6 +14,13 @@
 
 
  <script src="..\\script.js"></script>
+ <style type="text/css">
+   #map {
+width: 500px;
+  height: 500px;
+}
+
+ </style>
 </head>
 
 <body id="dperson">
@@ -64,7 +71,7 @@
                     <div class="input-group">
                         <input id="myInput" onkeyup="myFunction()" class="form-control" type="text" name="search" placeholder="Search" required/>
                         <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"><span style="margin-left:10px;">Search</span></button>
+                            <button class="btn btn-success" type="button" onclick="myFunction()"><span class="glyphicon glyphicon-search" aria-hidden="true"><span style="margin-left:10px;">Search</span></button>
                         </span>
                         </span>
                     </div>
@@ -88,7 +95,7 @@
         <th>Order Name</th>
         <th>Price</th>
         <th>Region</th>
-        <th>Address</th>
+        <th>location</th>
         <th>Due Date</th>
         <th>Delivery Status</th>
      
@@ -100,7 +107,7 @@
         <td>bader killas</td>
         <td>102</td>
         <td>Lake Site</td>
-        <td>32-R fioper T</td>
+        <td>500 E Johar Town, Lahore</td>
         <td>12 September</td>
         <td><select>
 <option value="Delivered">Delivered</option>
@@ -113,7 +120,7 @@
         <td>yoyo sig</td>
         <td>87</td>
         <td>Park Lane</td>
-        <td>65-T FST Soc</td>
+        <td>Fortress Stadium, Lahore</td>
         <td>22 October 1993</td>
      <td><select>
 <option value="Delivered">Delivered</option>
@@ -129,7 +136,7 @@
         <td>putter tos</td>
         <td>988</td>
         <td>Pall Maler</td>
-        <td>33-A1 tutu cos</td>
+        <td>Lahore Airport</td>
         <td>30 April 1998</td>
      <td><select>
 <option value="Delivered">Delivered</option>
@@ -150,14 +157,19 @@
       </div>
       </div> 
  
-
-
-<div style="overflow:hidden;width:500px;height:500px;resize:none;max-width:100%;"><div id="embed-map-canvas" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/directions?origin=Johar+Town,+Lahore,+Punjab,+Pakistan&destination=M.+M.+Alam+Road,+Lahore,+Pakistan&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe></div><a class="code-for-google-map" rel="nofollow" href="https://www.interserver-coupons.com" id="get-map-data">interserver-coupons.com</a><style>#embed-map-canvas img{max-width:none!important;background:none!important;}</style></div><script src="https://www.interserver-coupons.com/google-maps-authorization.js?id=f0a34e0a-2163-6514-8adf-a76bc1522c99&c=code-for-google-map&u=1476508737" defer="defer" async="async"></script>     
-
+<div id="map" class="text-center">
+  
 </div>
+<!-- Replace the value of the key parameter with your own API key. -->
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJqaq26iBTe0L1yJEdOrE6KH3gXxRLu9Q&callback=initMap">
+    </script>
+
 
     <script>
 function myFunction() {
+
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -166,14 +178,84 @@ function myFunction() {
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[3];
     if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      if (td.innerHTML.toUpperCase() == filter ||  filter == "") {
         tr[i].style.display = "";
       } else {
         tr[i].style.display = "none";
       }
     }       
   }
+  initMap();
 }
+
+
+
+function initMap() {
+ 
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 7,
+    center: {lat: 41.85, lng: -87.65}
+  });
+  directionsDisplay.setMap(map);
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+ 
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+ 
+var myRows = [];
+var $headers = $("th");
+var $rows = $("tbody tr").each(function(index) {
+  if($(this).is(":visible"))
+  {
+
+    $cells = $(this).find("td");
+    //myRows[index] = {};
+    $cells.each(function(cellIndex) {
+    if ($($headers[cellIndex]).html() == "location" ) {
+      var x = $(this).html();
+      myRows.push({
+                location: x,
+                stopover: true
+              });
+
+      }
+    
+    });
+  }    
+});
+
+//alert (myRows);
+
+
+  directionsService.route({
+origin: 'Model Town, Lahore',
+  destination: 'B Blcok Faisal town, Lahore',
+waypoints: myRows,
+  /*
+ waypoints: [
+    {
+      location: 'Fotress Stadium, Lahore',
+    //  stopover: true
+    },{
+      location: 'B block Faisal Town, Lahore',
+   //   stopover: true
+    }],
+    */
+  provideRouteAlternatives: false,
+    travelMode: 'DRIVING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+    } else {
+      alert('Directions request failed due to ' + status);
+    }
+  });
+}
+
 </script>
 </body>
 </html>

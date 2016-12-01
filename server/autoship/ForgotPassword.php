@@ -8,7 +8,8 @@ include("servermodal.php");
 
 $mailto = $_POST['email'];
 
-
+echo "email found";
+return;
 
 
 if(isset($_POST['forgotpassword-submit'])){

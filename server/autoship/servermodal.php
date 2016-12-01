@@ -342,5 +342,50 @@ class Autoship {
         mysqli_close($conn);
         return json_encode($json);   
     }
+
+
+    public static function model_set_Tag($ids){
+       
+
+        if(count($ids) == 0){
+            $json["STATUS"] = "FAIL";
+            return json_encode($json);
+        }
+        $conn = Autoship::establishConnection();
+        $sql $conn->prepare("UPDATE autoship_order SET tag = ? WHERE order_id=?");
+            $sql->bind_param("si","usama",$value);
+        foreach ($ids as &$value) {
+
+            
+            $sql = $conn->prepare("UPDATE autoship_order SET tag = ? WHERE order_id=?");
+            $sql->bind_param("si","usama",$value);
+
+            if ($sql->execute())       // corrected
+            {
+
+                $json["STATUS"] = "SUCCESS";                   
+                $json["MESSEGE"] = "order tag updated Successfully";
+
+                
+            }
+            else
+            {
+
+                $json["STATUS"] = "FAIL";
+                $json["MESSEGE"] = "Failed to update order tag";
+                break;
+            }
+        }
+        $sql->close();
+
+        mysqli_close($conn);
+        return json_encode($json);   
+    }
 }
+
+
+
+
+
+
 ?>

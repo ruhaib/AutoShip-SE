@@ -71,6 +71,12 @@ switch($req)
         echo logoutHandler();
         break;
 
+    case 'CHANGE_TAG_STATUS':
+     
+        echo  changedStatus();
+
+        break;
+        
 }
 
 ?>

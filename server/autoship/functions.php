@@ -106,4 +106,18 @@ function logoutHandler(){
 	return json_encode($json);
 }			
 
+
+function changedStatus(){
+	$ids = $_REQUEST['IDS'];
+
+	 
+
+
+	return Autoship::model_set_Tag($ids);
+	
+
+	
+}
+
+
 ?>
