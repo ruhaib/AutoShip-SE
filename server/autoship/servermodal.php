@@ -322,7 +322,7 @@ class Autoship {
         }
         $conn = Autoship::establishConnection();
         $sql = $conn->prepare("UPDATE autoship_order SET status = ? WHERE order_id=?");
-        $sql->bind_param("si",$oid,$status);
+        $sql->bind_param("si",$status,$oid);
 
         if ($sql->execute())       // corrected
         {
@@ -344,8 +344,9 @@ class Autoship {
     }
 
 
-    public static function model_set_Tag($id){
+    public static function model_set_Tag($ids){
        
+<<<<<<< HEAD
         $conn = Autoship::establishConnection();
        
             $sql2= $conn->prepare("select region,due_date,order_id from autoship_order where status = 'Not Delivered'");
@@ -380,21 +381,15 @@ class Autoship {
             }
             else
             {
+=======
+>>>>>>> 607a54a7f57e72e0fded184f264252fc6670cc72
 
-                $json["STATUS"] = "FAIL";
-                $json["MESSEGE"] = "Failed to update order tag";
-                
-            }
+        if(count($ids) == 0){
+            $json["STATUS"] = "FAIL";
+            return json_encode($json);
         }
-        else{
-                $json["STATUS"] = "FAIL";
-                $json["MESSEGE"] = "Failed to generate order tag";
-        }
+        $conn = Autoship::establishConnection();
         
-        $sql->close();
-
-        mysqli_close($conn);
-        return json_encode($json);   
     }
 }
 

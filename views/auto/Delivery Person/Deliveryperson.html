@@ -13,7 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
- <script src="..\\script.js"></script>
+ <script src="../script.js"></script>
  <style type="text/css">
    #map {
 width: 500px;
@@ -111,7 +111,7 @@ width: 500px;
         <td>12 September</td>
         <td><select>
 <option value="Delivered">Delivered</option>
-<option value="Not Shipped">Not Delivered</option>
+<option value="Not Delivered">Not Delivered</option>
 </select></td>
 
       </tr>
@@ -124,7 +124,7 @@ width: 500px;
         <td>22 October 1993</td>
      <td><select>
 <option value="Delivered">Delivered</option>
-<option value="Not Shipped">Not Delivered</option>
+<option value="Not Delivered">Not Delivered</option>
 </select></td>
 
      
@@ -132,15 +132,15 @@ width: 500px;
      
                <tr>
         
-        <td>32168684</td>
+        <td>5</td>
         <td>putter tos</td>
         <td>988</td>
         <td>Pall Maler</td>
         <td>Lahore Airport</td>
         <td>30 April 1998</td>
-     <td><select>
+     <td><select class = "changeStat">
+<option value="Not Delivered">Not Delivered</option>
 <option value="Delivered">Delivered</option>
-<option value="Not Shipped">Not Delivered</option>
 </select></td>
 
      
@@ -150,12 +150,7 @@ width: 500px;
   </table>
 </div>
 
- 
- <div class="form-group" >
-      <div class="col-sm-offset-3 col-sm-12 btn-group-lg">
-        <button type="submit" class="btn btn-info" style= "position: fixed; margin-left:700px ">Save</button>
-      </div>
-      </div> 
+
  
 <div id="map" class="text-center">
   
@@ -255,6 +250,48 @@ waypoints: myRows,
     }
   });
 }
+
+$(".changeStat").click(function () {
+if ($(this).val()=="Delivered") {
+
+
+$row = $(this).parent().parent();      
+  $cells = $row.children('td');
+  $rowid= $($cells[0]).html().toString();       
+//alert($rowid);
+
+
+ $.ajax({
+                        type: "POST",
+                        url: "/AutoShip-SE/server/autoship/servercontroller.php",
+                        data: {REQUEST_TYPE: 'CHANGE_Delivery_STATUS', ID: $rowid },
+                        dataType: 'json',
+                        timeout: 30000,
+                        success: function (data) {
+                            if (data.STATUS == "SUCCESS") {
+                               // alert("success");
+                                alert(data.MESSEGE);
+                                //window.location.href = '../login/login.html';
+
+                            }       
+                            else if (data.STATUS == "FAIL") {
+                                alert('Failed to logout');
+                            }
+                            else //ERROR
+                            {
+                                alert('Error');
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert(m);
+
+                        }
+                    });
+
+
+}
+
+});
 
 </script>
 </body>

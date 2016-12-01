@@ -368,7 +368,7 @@
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
 
-                                alert("password updated successfully");
+                                alert("password update_profiled successfully");
                                 window.location.href = 'manager.html';
 
                             }       
@@ -425,6 +425,7 @@
                                     generatedHTML += '<td>' + data.DATA[i].region + '</td>';
                                     generatedHTML += '<td>' + data.DATA[i].address + '</td>';
                                     generatedHTML += '<td>' + data.DATA[i].due_date + '</td>';
+                                    generatedHTML += '<td>' + data.DATA[i].tag + '</td>';
                                     generatedHTML += '<td>' + data.DATA[i].status + '</td>';                          
                                     generatedHTML += '</tr>';
                                 }
@@ -663,18 +664,30 @@
         var row = $(this);
         if (row.find('input[type="checkbox"]').is(':checked')) {
             $cells = $(this).children('td');
-            alert($($cells[0]).html());
-            var temp = $($cells[0]).html().toString();
-            alert(temp);    
-              $.ajax({
+
+             myIds.push({
+                    rowid: $($cells[0]).html()       
+                });
+                //alert($($cells[0]).html());
+        }
+    });
+    //.
+
+    alert(myIds.length);
+
+    for (var i = 0 ; i < myIds.length; i++) {
+        var temp = myIds[i];
+        
+         $.ajax({
                         type: "POST",
                         url: "/AutoShip-SE/server/autoship/servercontroller.php",
-                        data: {REQUEST_TYPE: 'CHANGE_TAG_STATUS', ID: temp },
+                        data: {REQUEST_TYPE: 'CHANGE_TAG_STATUS', IDS: temp },
                         dataType: 'json',
                         timeout: 30000,
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
                                 alert("success");
+                                alert(data.MESSEGE);
                                 //window.location.href = '../login/login.html';
 
                             }       
@@ -691,11 +704,10 @@
 
                         }
                     });
-                
-        }
-    });
-    //.
+            }
     }
+    
+
 
         /*$("tbody tr").each(function(index){
             $cells = $(this).children('td');
