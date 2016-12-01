@@ -346,7 +346,7 @@ class Autoship {
 
     public static function model_set_Tag($ids){
        
-<<<<<<< HEAD
+
         $conn = Autoship::establishConnection();
        
             $sql2= $conn->prepare("select region,due_date,order_id from autoship_order where status = 'Not Delivered'");
@@ -381,14 +381,8 @@ class Autoship {
             }
             else
             {
-=======
->>>>>>> 607a54a7f57e72e0fded184f264252fc6670cc72
 
-        if(count($ids) == 0){
-            $json["STATUS"] = "FAIL";
-            return json_encode($json);
-        }
-        $conn = Autoship::establishConnection();
+            }
         
     }
 }
