@@ -458,6 +458,77 @@
                     });
     }
 
+    function all_orders_tags() {
+        generatedHTML = '';
+                    generatedHTML += '<center>'; 
+                    generatedHTML += '<table id="myTable" class="table table-bordered table-hover table-striped col-sm-3">';
+                    generatedHTML += '<thead>';
+                    generatedHTML += '<tr>';
+                    generatedHTML += '<th>Order ID</th>';
+                    generatedHTML += '<th>Order Name</th>';
+                    generatedHTML += '<th>Price</th>';
+                    generatedHTML += '<th>Region</th>';
+                    generatedHTML += '<th>Address</th>';
+                    generatedHTML += '<th>Due Date</th>';
+                    generatedHTML += '<th>Tag Status</th>';
+                    generatedHTML += '</tr>';
+                    generatedHTML += '</thead>';
+                    generatedHTML += '<tbody>';
+                    //alert(userid);
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost/autoship-se/server/autoship/servercontroller.php",
+                        data: { REQUEST_TYPE: 'get_allOrders'},
+                        dataType: 'json',
+                        timeout: 30000,
+                        success: function (data) {
+                            if (data.STATUS == "SUCCESS") {
+                                alert("STATUS = success");
+                                for (var i = 0 ; i < data.TotalRecords; i++) {
+                                    generatedHTML += '<tr>';
+                                    generatedHTML += '<td>' + data.DATA[i].order_id + '</td>';
+                                    generatedHTML += '<td>' + data.DATA[i].order_name + '</td>';
+                                    generatedHTML += '<td>' + data.DATA[i].price + '</td> ';
+                                    generatedHTML += '<td>' + data.DATA[i].region + '</td>';
+                                    generatedHTML += '<td>' + data.DATA[i].address + '</td>';
+                                    generatedHTML += '<td>' + data.DATA[i].due_date + '</td>';
+                                    generatedHTML += '<td><input type="checkbox" name="tag" value="No"></td>';                          
+                                    generatedHTML += '</tr>';
+                                }
+                                generatedHTML += '</tbody>';
+                                generatedHTML += '</table>';
+                                generatedHTML += '</center>';
+                                if(data.TotalRecords>0){
+                                    $("#all_orders").html(generatedHTML);    
+                                }
+                                else{
+                                    var error_msg= '<h1 class="text-center" style="color:red">No Orders found.</h1>';
+                                    $("#all_orders").html(error_msg); 
+                                }
+                                
+                            }       
+                            else if (data.STATUS == "FAIL") {
+                                alert('Fail');
+                            }
+                            else //ERROR
+                            {
+                                alert('Error');
+                            }
+                        },
+                        error: function (x, t, m) {
+                            if (t === "timeout") {
+                                alert('Timeout');
+                            } else {
+                                alert(t);
+                            }
+                        }
+                    });
+    }
+
+
+
+
+
     function regionvise_ordersReport(){         // for horizontal bar chart
         $(function() {
          $.ajax({

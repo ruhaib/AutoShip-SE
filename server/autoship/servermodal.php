@@ -350,14 +350,19 @@ class Autoship {
        
             $sql2= $conn->prepare("select region,due_date,order_id from autoship_order where status = 'Not Delivered'");
                 if($sql2->execute()){
-
                     $sql2->bind_result($region,$due_date,$order_id);
-                    str_replace(" ", "", $region);
-                    str_replace("-", "", $due_date);
+                    while($sql2->fetch())
+                    {
+                        
+                        str_replace(" ", "", $region);
+                        $parts = explode('-', $due_date);
+                        $newdate = $parts[0].$parts[1].$parts[2];
+                        $region = strtoupper($region);
 
-                    $newtag= $region.$due_date.$order_id; 
-                    //echo $newtag;
-                    $json["tag"] = $newtag;
+                        $newtag= $region.$newdate.$order_id; 
+                        //echo $newtag;
+                        //$json["tag"] = $newtag;
+                    }
                     $sql2->close();
                 
 
