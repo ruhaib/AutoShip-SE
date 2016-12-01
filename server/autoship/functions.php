@@ -108,10 +108,12 @@ function logoutHandler(){
 
 
 function changedStatus(){
-	$ids = $_REQUEST['IDS'];
+	$ids = $_REQUEST['ID'];
 
 	 
-
+	//$json["STATUS"] = "SUCCESS";                   
+    //$json["MESSEGE"] = count($ids);
+    //return json_encode($json);
 
 	return Autoship::model_set_Tag($ids);
 	

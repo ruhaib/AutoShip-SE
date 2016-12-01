@@ -592,18 +592,13 @@
         var row = $(this);
         if (row.find('input[type="checkbox"]').is(':checked')) {
             $cells = $(this).children('td');
-
-             myIds.push({
-                    rowid: $($cells[0]).html()       
-                });
-                //alert($($cells[0]).html());
-        }
-    });
-
-    $.ajax({
+            alert($($cells[0]).html());
+            var temp = $($cells[0]).html().toString();
+            alert(temp);    
+              $.ajax({
                         type: "POST",
                         url: "/AutoShip-SE/server/autoship/servercontroller.php",
-                        data: { REQUEST_TYPE: 'CHANGE_TAG_STATUS', IDS: myIds },
+                        data: {REQUEST_TYPE: 'CHANGE_TAG_STATUS', ID: temp },
                         dataType: 'json',
                         timeout: 30000,
                         success: function (data) {
@@ -621,9 +616,15 @@
                             }
                         },
                         error: function (x, t, m) {
-                            alert("final error");
+                            alert(m);
+
                         }
                     });
+                
+        }
+    });
+    //.
+    }
 
         /*$("tbody tr").each(function(index){
             $cells = $(this).children('td');
@@ -669,4 +670,6 @@
                         }
                     });
     */
-    }
+
+
+   
