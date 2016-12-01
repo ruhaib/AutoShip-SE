@@ -322,7 +322,7 @@ class Autoship {
         }
         $conn = Autoship::establishConnection();
         $sql = $conn->prepare("UPDATE autoship_order SET status = ? WHERE order_id=?");
-        $sql->bind_param("si",$oid,$status);
+        $sql->bind_param("si",$status,$oid);
 
         if ($sql->execute())       // corrected
         {
@@ -344,52 +344,15 @@ class Autoship {
     }
 
 
-    public static function model_set_Tag($id){
+    public static function model_set_Tag($ids){
        
+
+        if(count($ids) == 0){
+            $json["STATUS"] = "FAIL";
+            return json_encode($json);
+        }
         $conn = Autoship::establishConnection();
-       
-            $sql2= $conn->prepare("select region,due_date,order_id from autoship_order where status = 'Not Delivered'");
-                if($sql2->execute()){
-
-                    $sql2->bind_result($region,$due_date,$order_id);
-                    str_replace(" ", "", $region);
-                    str_replace("-", "", $due_date);
-
-                    $newtag= $region.$due_date.$order_id; 
-                    //echo $newtag;
-                    $json["tag"] = $newtag;
-                    $sql2->close();
-                
-
-            $sql = $conn->prepare("UPDATE autoship_order SET tag = ? WHERE order_id=?");
-
-            //$sql2 = $conn->prepare("");
-            $sql->bind_param("si",$newtag,$id);
-
-            if ($sql->execute())       // corrected
-            {
-
-                $json["STATUS"] = "SUCCESS";                   
-                $json["MESSEGE"] = "order tag updated Successfully";           
-                
-            }
-            else
-            {
-
-                $json["STATUS"] = "FAIL";
-                $json["MESSEGE"] = "Failed to update order tag";
-                
-            }
-        }
-        else{
-                $json["STATUS"] = "FAIL";
-                $json["MESSEGE"] = "Failed to generate order tag";
-        }
         
-        $sql->close();
-
-        mysqli_close($conn);
-        return json_encode($json);   
     }
 }
 

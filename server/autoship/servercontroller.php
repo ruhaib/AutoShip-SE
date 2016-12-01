@@ -78,6 +78,11 @@ switch($req)
         echo  changedStatus();
 
         break;
+
+
+         case  'CHANGE_Delivery_STATUS': 
+         echo changeDeliveryStatus();
+         break;
         
 }
 

@@ -108,18 +108,22 @@ function logoutHandler(){
 
 
 function changedStatus(){
-	$ids = $_REQUEST['ID'];
+	$ids = $_REQUEST['IDS'];
 
 	 
-	//$json["STATUS"] = "SUCCESS";                   
-    //$json["MESSEGE"] = count($ids);
-    //return json_encode($json);
+	$json["STATUS"] = "SUCCESS";                   
+    $json["MESSEGE"] = count($ids);
+    return json_encode($json);
 
-	return Autoship::model_set_Tag($ids);
+	//return Autoship::model_set_Tag($ids);
 	
 
 	
 }
-
+function changeDeliveryStatus() {
+	$id=$_REQUEST['ID'];
+	$status="Delivered";
+	return  Autoship::model_update_status($id, $status);
+}
 
 ?>
