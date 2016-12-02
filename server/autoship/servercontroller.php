@@ -44,6 +44,11 @@ switch($req)
         echo fn_get_allOrders();
         break;
 
+        
+    case 'get_allOrders_tags':
+        echo fn_get_allOrders_tags();
+        break;
+
     case 'update_status':
         echo fn_update_status();
         break;
@@ -78,11 +83,6 @@ switch($req)
         echo  changedStatus();
 
         break;
-
-
-         case  'CHANGE_Delivery_STATUS': 
-         echo changeDeliveryStatus();
-         break;
         
 }
 

@@ -1,8 +1,40 @@
+    function validateEmail() {
+    var x = document.getElementById("id").value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+       // alert("Not a valid e-mail address");
+        return false;
+        }
+    }
+
     function login() {
 
             var email = document.getElementById("id").value; 
-            var password = document.getElementById("password").value; 
-            //alert(email);
+            if(email == ""){
+                 document.getElementById("login-error").innerText="";
+                 document.getElementById("email-error").innerText="Email field is empty";
+                return false;
+            }
+             document.getElementById("email-error").innerText="";
+            var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+            if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
+                //alert("Not a valid e-mail address");
+                document.getElementById("login-error").innerText="";
+                document.getElementById("email-error").innerText="Email format is incorrect";
+                return false;
+            }
+            document.getElementById("email-error").innerText="";   
+
+            var password = document.getElementById("password").value;
+            if (password == "") {
+                document.getElementById("login-error").innerText="";
+                document.getElementById("password-error").innerText="Password field is empty";
+                return false;
+            } 
+            document.getElementById("password-error").innerText="";
+
             //alert(password);
 
             $.ajax({
@@ -12,11 +44,11 @@
                 dataType: 'json',
                 timeout: 30000,
                 success: function (data) {
-                    alert(data.user_type);  
+                    //alert(data.user_type);  
                     if (data.STATUS == "SUCCESS") {
-                        //document.getElementById("msg").innerText = "Logged in Successfully";
+                        document.getElementById("login-error").innerText="login successfully";
                         //alert(data.user_type);
-                        alert("logged in successfully");
+                        //alert("logged in successfully");
                         localStorage.setItem("User_id", data.uid);
                         localStorage.setItem("User_type", data.user_type);
                         if(data.user_type == "admin"){
@@ -36,7 +68,7 @@
 
                     else if (data.STATUS == "FAIL") 
                     {
-                            alert('Fail');
+                            document.getElementById("login-error").innerText="Something went wrong. email or password is incorrect";
                     }
                     else //ERROR
                     {
@@ -59,7 +91,10 @@
                 return;
             }
             var name = document.getElementById("name").value;
-            //alert(name);
+            if (name == "") {
+                document.getElementById("name-error").innerText="Name field cannot be empty";
+                return false;
+            }
             var cnic = document.getElementById("cnic").value;//alert(cnic);
             var email = document.getElementById("email").value;//alert(email);
             var password1 = document.getElementById("password1").value;//alert(password1);
@@ -68,8 +103,8 @@
                 alert("passwords does not match");
                 return;
             }
-            var contact = document.getElementById("contact").value;alert(contact);
-            var dob = document.getElementById("dob").value;alert(dob);
+            var contact = document.getElementById("contact").value;//alert(contact);
+            var dob = document.getElementById("dob").value;//alert(dob);
             var e = document.getElementById("role");      // get value of role from dropdownlist
             var role = e.options[e.selectedIndex].value;
             //alert(role);
@@ -81,7 +116,15 @@
                 timeout: 30000,
                 success: function (data) {
                     if (data.STATUS == "SUCCESS") {
-                        alert("employee added successfully");
+                        //alert("employee added successfully");
+                        document.getElementById("name").value = "";
+                        document.getElementById("cnic").value = "";
+                        document.getElementById("email").value = "";
+                        document.getElementById("password1").value = "";
+                        document.getElementById("password2").value = "";
+                        document.getElementById("password2").value = "";
+                        document.getElementById("password2").value = "";
+                        window.location.href = 'addEmployee.html';
                     }
 
                     else if (data.STATUS == "FAIL") {
@@ -105,7 +148,7 @@
     function get_allEmployee(){
         var userid = localStorage.getItem("User_id");
 
-        alert("come in all employee function");
+        //alert("come in all employee function");
                     generatedHTML = '';
                     generatedHTML += '<center>'; 
                     generatedHTML += '<table class="table table-bordered table-hover table-striped col-sm-3">';
@@ -130,7 +173,7 @@
                         timeout: 30000,
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
-                                alert("STATUS = success");
+                                //alert("STATUS = success");
                                 for (var i = 0 ; i < data.TotalRecords; i++) {
                                     generatedHTML += '<tr>';
                                     generatedHTML += '<td>' + data.DATA[i].name + '</td>';
@@ -175,7 +218,7 @@
 
     function deleteEmp(user_id){
         //alert("hello zunair");
-        alert(user_id);
+       //alert(user_id);
 
         $.ajax({
                         type: "POST",
@@ -185,7 +228,7 @@
                         timeout: 30000,
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
-                                alert("employee deleted successfully");
+                                //alert("employee deleted successfully");
                                 get_allEmployee();
                                 }
                                   
@@ -210,8 +253,8 @@
 
     function get_profile(){
          var userid = localStorage.getItem("User_id");
-         alert(userid);
-        alert("come in get profile function");
+         //alert(userid);
+        //alert("come in get profile function");
 
                     $.ajax({
                         type: "POST",
@@ -278,7 +321,7 @@
 
     function edit_profile(){
         
-         alert("come in edit profile function");
+         //alert("come in edit profile function");
          var userid = localStorage.getItem("userid");
          var name = localStorage.getItem("name");
          var cnic = localStorage.getItem("cnic");
@@ -305,16 +348,28 @@
     function update_profile(){
 
         var userid = localStorage.getItem("User_id");
-        alert(userid);  
+        //alert(userid);  
         var name = document.getElementById("name").value;
         var cnic = document.getElementById("cnic").value;
         var email = document.getElementById("email").value;
         var contact = document.getElementById("contact").value;
         var dob = document.getElementById("dob").value;
-        alert(dob);
+        //alert(dob);
         //dob="30/11/2011";
-        var role = document.getElementById("role").innerText;
-        alert(role);
+        if(document.getElementById("role").innerText == "Shipping Manager"){
+            role = "SM";
+        }
+        else if(document.getElementById("role").innerText == "Packing Manager"){
+            role = "PM";
+        }
+        else if(document.getElementById("role").innerText == "Delivery Person"){
+            role = "DP";
+        }
+        else if(document.getElementById("role").innerText == "admin"){
+            role = "admin";
+        }
+       // var role = document.getElementById("role").innerText;
+        //alert(role);
         $.ajax({
                         type: "POST",
                         url: "http://localhost:8080/autoship/servercontroller.php",
@@ -325,12 +380,24 @@
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
 
-                                alert("Profile updated successfully");
-                                window.location.href = 'manager.html';
+                                //alert("Profile updated successfully");
+                                if(role == "SM"){
+                                    window.location.href = 'smanager.html';    
+                                }
+                                else if(role == "PM"){
+                                    window.location.href = 'pmanager.html';    
+                                }
+                                else if(role == "DP"){
+                                    window.location.href = 'dperson.html';    
+                                }
+                                else if(role == "admin"){
+                                    window.location.href = 'manager.html';    
+                                }
+                                
 
                             }       
                             else if (data.STATUS == "FAIL") {
-                                alert('Fail');
+                                alert('No update: Fail');
                             }
                             else //ERROR
                             {
@@ -349,7 +416,7 @@
 
     function change_password(){
         var userid = localStorage.getItem("User_id");
-        alert(userid);  
+        //alert(userid);  
         var current_password = document.getElementById("current_password").value;
         var new_password1 = document.getElementById("new_password1").value;
         var new_password2 = document.getElementById("new_password2").value;
@@ -368,12 +435,19 @@
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
 
-                                alert("password update_profiled successfully");
-                                window.location.href = 'manager.html';
+                                document.getElementById("current_password").value = "";
+                                document.getElementById("new_password1").value = "";
+                                document.getElementById("new_password2").value = "";
+                                
+                                document.getElementById("change_password_msg").innerText = "Password changed successfully";
 
                             }       
                             else if (data.STATUS == "FAIL") {
-                                alert('Failed to update password');
+                                //alert('Failed to update password');
+                                document.getElementById("current_password").value = "";
+                                document.getElementById("new_password1").value = "";
+                                document.getElementById("new_password2").value = "";
+                                document.getElementById("change_password_msg").innerText = "Failed to update password";
                             }
                             else //ERROR
                             {
@@ -416,7 +490,7 @@
                         timeout: 30000,
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
-                                alert("STATUS = success");
+                                //alert("STATUS = success");
                                 for (var i = 0 ; i < data.TotalRecords; i++) {
                                     generatedHTML += '<tr>';
                                     generatedHTML += '<td>' + data.DATA[i].order_id + '</td>';
@@ -425,7 +499,6 @@
                                     generatedHTML += '<td>' + data.DATA[i].region + '</td>';
                                     generatedHTML += '<td>' + data.DATA[i].address + '</td>';
                                     generatedHTML += '<td>' + data.DATA[i].due_date + '</td>';
-                                    generatedHTML += '<td>' + data.DATA[i].tag + '</td>';
                                     generatedHTML += '<td>' + data.DATA[i].status + '</td>';                          
                                     generatedHTML += '</tr>';
                                 }
@@ -478,13 +551,13 @@
                     //alert(userid);
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost/autoship-se/server/autoship/servercontroller.php",
-                        data: { REQUEST_TYPE: 'get_allOrders'},
+                        url: "http://localhost:8080/autoship/servercontroller.php",
+                        data: { REQUEST_TYPE: 'get_allOrders_tags'},
                         dataType: 'json',
                         timeout: 30000,
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
-                                alert("STATUS = success");
+                               // alert("STATUS = success");
                                 for (var i = 0 ; i < data.TotalRecords; i++) {
                                     generatedHTML += '<tr>';
                                     generatedHTML += '<td>' + data.DATA[i].order_id + '</td>';
@@ -664,31 +737,19 @@
         var row = $(this);
         if (row.find('input[type="checkbox"]').is(':checked')) {
             $cells = $(this).children('td');
-
-             myIds.push({
-                    rowid: $($cells[0]).html()       
-                });
-                //alert($($cells[0]).html());
-        }
-    });
-    //.
-
-    alert(myIds.length);
-
-    for (var i = 0 ; i < myIds.length; i++) {
-        var temp = myIds[i];
-        
-         $.ajax({
+            //alert($($cells[0]).html());
+            var temp = $($cells[0]).html().toString();
+            //alert(temp);    
+              $.ajax({
                         type: "POST",
-                        url: "/AutoShip-SE/server/autoship/servercontroller.php",
-                        data: {REQUEST_TYPE: 'CHANGE_TAG_STATUS', IDS: temp },
+                        url: "http://localhost:8080/autoship/servercontroller.php",
+                        data: {REQUEST_TYPE: 'CHANGE_TAG_STATUS', ID: temp },
                         dataType: 'json',
                         timeout: 30000,
                         success: function (data) {
                             if (data.STATUS == "SUCCESS") {
-                                alert("success");
-                                alert(data.MESSEGE);
-                                //window.location.href = '../login/login.html';
+                                //alert("success");
+                                window.location.href = 'generateTags.html';
 
                             }       
                             else if (data.STATUS == "FAIL") {
@@ -704,10 +765,11 @@
 
                         }
                     });
-            }
+                
+        }
+    });
+    //.
     }
-    
-
 
         /*$("tbody tr").each(function(index){
             $cells = $(this).children('td');
