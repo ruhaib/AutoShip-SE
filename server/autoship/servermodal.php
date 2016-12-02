@@ -315,6 +315,56 @@ class Autoship {
     }
 
 
+    public static function model_get_allOrders_tags(){
+
+        $conn = Autoship::establishConnection();
+        $sql = $conn->prepare("SELECT order_id, order_name, price, region,address, receive_date,due_date, status FROM autoship_order where Tag=''");
+        //$sql->bind_param("ssi",$new_password,$old_password,$uid);
+        if ($sql->execute())
+        {
+
+            $sql->bind_result($order_id,$order_name,$price,$region,$address,$receive_date,$due_date,$status);
+
+            $counter = 0;
+            while($sql->fetch())
+            {
+                $temp["order_id"] = $order_id;
+                $temp["order_name"] = $order_name;
+                $temp["price"] = $price;
+
+                $temp["region"] = $region;
+                $temp["address"] = $address;
+
+                $temp["receive_date"] = $receive_date;
+                $temp["due_date"] = $due_date;
+                $temp["status"] = $status;
+
+                $json["DATA"][] = $temp;
+                unset($temp);
+
+                $counter++;
+                //@session_start();
+                //$_SESSION['session']="ValueAssigned";
+
+
+            }
+            $json["TotalRecords"] = $counter;
+            $json["STATUS"] = "SUCCESS";                   
+            $json["MESSEGE"] = "get orders Successfully";
+
+            
+        }
+        else
+        {
+
+            $json["STATUS"] = "FAIL";
+            $json["MESSEGE"] = "Failed to get orders";
+        }
+        $sql->close();
+        mysqli_close($conn);
+        return json_encode($json);   
+    }
+
     public static function model_update_status($oid, $status){
         if($oid == "" || $status == ""){
             $json["STATUS"] = "FAIL";
@@ -322,7 +372,7 @@ class Autoship {
         }
         $conn = Autoship::establishConnection();
         $sql = $conn->prepare("UPDATE autoship_order SET status = ? WHERE order_id=?");
-        $sql->bind_param("si",$status,$oid);
+        $sql->bind_param("si",$oid,$status);
 
         if ($sql->execute())       // corrected
         {
@@ -344,18 +394,21 @@ class Autoship {
     }
 
 
-    public static function model_set_Tag($ids){
+    public static function model_set_Tag($id){
        
-
         $conn = Autoship::establishConnection();
+        $conn2 = Autoship::establishConnection();
        
-            $sql2= $conn->prepare("select region,due_date,order_id from autoship_order where status = 'Not Delivered'");
-                if($sql2->execute()){
+            $sql2= $conn->prepare("SELECT region,due_date,order_id from autoship_order where status = 'Not Delivered' and order_id=".$id);
+                $sql2->execute();
+                //if($sql2->execute()){
                     $sql2->bind_result($region,$due_date,$order_id);
-                    while($sql2->fetch())
+                    if($sql2->fetch())
                     {
                         
-                        str_replace(" ", "", $region);
+                        //str_replace(" ", "", $region);
+                        $region1 = explode(' ', $region);
+                        $region = $region1[0].$region1[1];
                         $parts = explode('-', $due_date);
                         $newdate = $parts[0].$parts[1].$parts[2];
                         $region = strtoupper($region);
@@ -363,33 +416,35 @@ class Autoship {
                         $newtag= $region.$newdate.$order_id; 
                         //echo $newtag;
                         //$json["tag"] = $newtag;
+                        $sql = $conn2->prepare("UPDATE autoship_order set Tag=? WHERE order_id=?");
+                        $sql->bind_param("si",$newtag,$id);
+
+                        if ($sql->execute())
+                        {
+                            $json["STATUS"] = "SUCCESS";
+                            $json["MESSEGE"] = "Profile info changed Successfully";
+                        }
+                        else
+                        {
+
+                            $json["STATUS"] = "FAIL";
+                            $json["MESSEGE"] = "Failed to update profile info";
+                        }
+                        
                     }
-                    $sql2->close();
-                
-
-            $sql = $conn->prepare("UPDATE autoship_order SET tag = ? WHERE order_id=?");
-
-            //$sql2 = $conn->prepare("");
-            $sql->bind_param("si",$newtag,$id);
-
-            if ($sql->execute())       // corrected
-            {
-
-                $json["STATUS"] = "SUCCESS";                   
-                $json["MESSEGE"] = "order tag updated Successfully";           
-                
-            }
-            else
-            {
-
+        //}
+            else{
+                $json["STATUS"] = "FAIL";
+                $json["MESSEGE"] = "Failed to generate order tag";
             }
         
-        }
+        
+        $sql->close();
+        $sql2->close();
+        mysqli_close($conn);
+        mysqli_close($conn2);
+        return json_encode($json);   
     }
 }
-
-
-
-
 
 ?>

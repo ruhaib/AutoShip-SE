@@ -78,6 +78,12 @@ function fn_get_allOrders(){
 
 }
 
+function fn_get_allOrders_tags(){
+
+	return Autoship::model_get_allOrders_tags();
+
+}
+
 function fn_update_status(){
 	$oid = $_REQUEST['order_id'];
 	$status = $_REQUEST['status'];
@@ -108,22 +114,18 @@ function logoutHandler(){
 
 
 function changedStatus(){
-	$ids = $_REQUEST['IDS'];
+	$ids = $_REQUEST['ID'];
 
 	 
-	$json["STATUS"] = "SUCCESS";                   
-    $json["MESSEGE"] = count($ids);
-    return json_encode($json);
+	//$json["STATUS"] = "SUCCESS";                   
+    //$json["MESSEGE"] = count($ids);
+    //return json_encode($json);
 
-	//return Autoship::model_set_Tag($ids);
+	return Autoship::model_set_Tag($ids);
 	
 
 	
 }
-function changeDeliveryStatus() {
-	$id=$_REQUEST['ID'];
-	$status="Delivered";
-	return  Autoship::model_update_status($id, $status);
-}
+
 
 ?>
